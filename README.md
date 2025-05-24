@@ -7,4 +7,6 @@ Clonar el repositorio:
 Subir un commit:
    git commit -m "mensaje (normalmente el cambio que se hace)"
    git push -u origin main
-   
+
+Actualizar Local (si en caso ya tienes el repositorio ya clonado)
+   git pull
