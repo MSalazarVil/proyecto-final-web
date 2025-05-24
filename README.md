@@ -5,8 +5,9 @@ Clonar el repositorio:
    cd proyecto-final-web
    
 Subir un commit:
+   git add .
    git commit -m "mensaje (normalmente el cambio que se hace)"
-   git push -u origin main
+   git push 
 
 Actualizar Local (si en caso ya tienes el repositorio ya clonado)
    git pull
