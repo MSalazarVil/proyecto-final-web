@@ -1,0 +1,83 @@
+.main-bg {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header {
+    background-color: #1769b2;
+    padding: 24px 0 16px 0;
+    text-align: center;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.welcome-container {
+    background: #fff;
+    margin: 40px auto 0 auto;
+    padding: 32px 24px 40px 24px;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    max-width: 700px;
+    text-align: center;
+}
+
+.welcome-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.welcome-desc {
+    color: #666;
+    margin-bottom: 32px;
+}
+
+.menu-options {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.menu-btn {
+    background-color: #1769b2;
+    color: #fff;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(23,105,178,0.08);
+    margin-bottom: 10px;
+}
+.menu-btn:hover {
+    background-color: #125a97;
+    box-shadow: 0 4px 16px rgba(23,105,178,0.14);
+}
+
+.footer {
+    background: #111c2b;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0 6px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}

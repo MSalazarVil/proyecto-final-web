@@ -1,0 +1,123 @@
+.main-bg {
+    background: #f4f8fc;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header {
+    background-color: #1769b2;
+    padding: 24px 0 16px 0;
+    text-align: center;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 24px 0 0 32px;
+    background: #fff;
+    color: #1769b2;
+    border: 2px solid #1769b2;
+    border-radius: 7px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.back-btn:hover {
+    background: #1769b2;
+    color: #fff;
+}
+
+.ventas-container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(33, 118, 210, 0.08);
+    padding: 36px 32px 32px 32px;
+}
+.ventas-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ventas-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2176d2;
+    margin-bottom: 24px;
+}
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 24px;
+}
+.ventas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.ventas-table th, .ventas-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.ventas-table th {
+    background-color: #2176d2;
+    font-weight: bold;
+    color: white;
+}
+
+.ventas-table tr:nth-child(even) {
+    background-color: #2176d2;
+}
+
+.ventas-table tr:hover {
+    background-color: #2176d2;
+}
+
+.add-btn {
+    background-color: #2176d2;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+.footer {
+    background: #111c2b;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0 6px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}

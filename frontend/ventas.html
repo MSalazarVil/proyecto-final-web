@@ -6,35 +6,36 @@
     <title>LUXEAPPAREL - Ventas</title>
     <link rel="stylesheet" href="css/ventas.css">
 </head>
-<body>
-    <header>
-        <h1>LUXEAPPAREL - Ventas</h1>
+<body class="main-bg">
+    <header class="header">
+        <h1 class="header-title">LUXEAPPAREL - Ventas</h1>
     </header>
-    <a href="index.html">Volver al Menú Principal</a>
-    <main>
-        <section class="ventas">
-            <h2>Registro de Ventas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID Venta</th>
-                        <th>Fecha</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Total</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se mostrarán las ventas -->
-                </tbody>
-            </table>
-            <button class="add-product-btn">Registrar Venta</button>
+    <a href="index.html" class="back-btn">Volver al Menú Principal</a>
+    <main class="ventas-container">
+        <section class="ventas-section">
+            <h1 class="ventas-title">Gestión de Ventas</h1>
+            <div class="table-responsive">
+                <table class="ventas-table">
+                    <thead>
+                        <tr>
+                            <th>ID Venta</th>
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se mostrarán las ventas -->
+                    </tbody>
+                </table>
+            </div>
+            <button class="add-btn">Agregar Venta</button>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
+    <footer class="footer">
+        <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
     </footer>
-    <script src="js/app.js"></script>
 </body>
 </html>

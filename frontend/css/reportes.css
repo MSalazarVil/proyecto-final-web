@@ -1,0 +1,112 @@
+.main-bg {
+    background: #f4f8fc;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header {
+    background-color: #1769b2;
+    padding: 24px 0 16px 0;
+    text-align: center;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 24px 0 0 32px;
+    background: #fff;
+    color: #1769b2;
+    border: 2px solid #1769b2;
+    border-radius: 7px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.back-btn:hover {
+    background: #1769b2;
+    color: #fff;
+}
+
+.reportes-container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(33, 118, 210, 0.08);
+    padding: 36px 32px 32px 32px;
+}
+.reportes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reportes-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2176d2;
+    margin-bottom: 24px;
+}
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 24px;
+}
+.reportes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f9fbfd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.reportes-table th, .reportes-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e3eaf6;
+}
+.reportes-table th {
+    background: #e3eaf6;
+    color: #174a7c;
+    font-weight: 600;
+}
+.reportes-table tr:last-child td {
+    border-bottom: none;
+}
+.add-btn {
+    background: #2176d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 18px;
+}
+.add-btn:hover {
+    background: #174a7c;
+}
+.footer {
+    background: #111c2b;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0 6px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}

@@ -6,36 +6,38 @@
     <title>LUXEAPPAREL - Inventario</title>
     <link rel="stylesheet" href="css/inventario.css">
 </head>
-<body>
-    <header>
-        <h1>LUXEAPPAREL - Inventario</h1>
+<body class="main-bg">
+    <header class="header">
+        <h1 class="header-title">LUXEAPPAREL - Inventario</h1>
     </header>
-    <a href="index.html">Volver al Menú Principal</a>
-    <main>
-        <section class="inventario">
-            <h2>Productos en Inventario</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Categoría</th>
-                        <th>Talla</th>
-                        <th>Color</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se mostrarán los productos -->
-                </tbody>
-            </table>
-            <button>Agregar Producto</button>
+    <a href="index.html" class="back-btn">Volver al Menú Principal</a>
+    <main class="inventario-container">
+        <section class="inventario-section">
+            <h2 class="inventario-title">Productos en Inventario</h2>
+            <div class="table-responsive">
+                <table class="inventario-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Talla</th>
+                            <th>Color</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se mostrarán los productos -->
+                    </tbody>
+                </table>
+            </div>
+            <button class="add-btn">Agregar Producto</button>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
+    <footer class="footer">
+        <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
     </footer>
     <script src="js/app.js"></script>
 </body>
