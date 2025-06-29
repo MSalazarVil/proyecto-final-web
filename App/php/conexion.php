@@ -5,6 +5,7 @@ $user = "root";
 $password = "";
 $bd = "appsistema";
 
-$conexion = mysqli_connect($server, $user, $password, $bd);
+$port = 3307;
+$conexion = mysqli_connect($server, $user, $password, $bd, $port);
 
 ?>
