@@ -10,7 +10,7 @@
     <header class="header">
         <h1 class="header-title">LUXEAPPAREL - Inventario</h1>
     </header>
-    <a href="index.html" class="back-btn">Volver al Menú Principal</a>
+    <a href="../index.php" class="back-btn">Volver al Menú Principal</a>
     <main class="inventario-container">
         <section class="inventario-section">
             <h2 class="inventario-title">Productos en Inventario</h2>

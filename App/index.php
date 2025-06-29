@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUXEAPPAREL - Bienvenida</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body class="main-bg">
     <!-- Encabezado principal -->
@@ -15,10 +15,10 @@
         <h2 class="welcome-title">Bienvenido al sistema de gestión de LUXEAPPAREL</h2>
         <p class="welcome-desc">Selecciona una de las opciones del menú para comenzar a gestionar tu negocio.</p>
         <div class="menu-options">
-            <a href="inventario.html" class="menu-btn">Inventario</a>
-            <a href="ventas.html" class="menu-btn">Ventas</a>
-            <a href="reportes.html" class="menu-btn">Reportes</a>
-            <a href="usuarios.html" class="menu-btn">Usuarios</a>
+            <a href="vistas/inventario.php" class="menu-btn">Inventario</a>
+            <a href="vistas/ventas.php" class="menu-btn">Ventas</a>
+            <a href="vistas/reportes.php" class="menu-btn">Reportes</a>
+            <a href="vistas/usuarios.php" class="menu-btn">Usuarios</a>
         </div>
     </main>
     <footer class="footer">

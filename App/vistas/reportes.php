@@ -10,7 +10,7 @@
     <header class="header">
         <h1 class="header-title">LUXEAPPAREL - Reportes</h1>
     </header>
-    <a href="index.html" class="back-btn">Volver al Menú Principal</a>
+    <a href="../index.php" class="back-btn">Volver al Menú Principal</a>
     <main class="reportes-container">
         <section class="reportes-section">
             <h1 class="reportes-title">Gestión de Reportes</h1>

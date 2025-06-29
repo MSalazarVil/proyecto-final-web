@@ -30,6 +30,7 @@
     text-decoration: none;
     transition: background 0.2s, color 0.2s;
 }
+
 .back-btn:hover {
     background: #1769b2;
     color: #fff;
@@ -54,48 +55,29 @@
     color: #2176d2;
     margin-bottom: 24px;
 }
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 24px;
-}
-.usuarios-table, .crear-usuario-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
 
-.usuarios-table th, .crear-usuario-table th {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    text-align: left;
-}
+.contenedor-inputs{
+ 	 padding: 10px 30px;
+ 	 display: flex;
+ 	 flex-wrap: wrap;
+ 	 justify-content: space-between;
+ }
 
-.usuarios-table td, .crear-usuario-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
+ input{
+ 	 margin-bottom: 15px;
+ 	 padding: 15px;
+ 	 font-size: 16px;
+ 	 border-radius: 3px;
+ 	 border: 1px solid darkgray;
+ }
 
-.usuarios-table tr:hover, .crear-usuario-table tr:hover {
-    background-color: #f1f1f1;
-}
+ .input-50{
+ 	 width: 48%;
+ }
 
-.add-btn {
-    background: #2176d2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 28px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 18px;
-}
+ .input-100{
+ 	 width: 100%;
+ }
 
 .footer {
     background: #111c2b;

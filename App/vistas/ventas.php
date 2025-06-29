@@ -10,7 +10,7 @@
     <header class="header">
         <h1 class="header-title">LUXEAPPAREL - Ventas</h1>
     </header>
-    <a href="index.html" class="back-btn">Volver al Menú Principal</a>
+    <a href="../index.php" class="back-btn">Volver al Menú Principal</a>
     <main class="ventas-container">
         <section class="ventas-section">
             <h1 class="ventas-title">Gestión de Ventas</h1>
