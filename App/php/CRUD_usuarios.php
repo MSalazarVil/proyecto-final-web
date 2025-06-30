@@ -12,7 +12,7 @@ function getUsers($conexion) {
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
             $users[] = $row;
-        }
+        }   
     }
     echo json_encode(['success' => true, 'data' => $users]);
 }

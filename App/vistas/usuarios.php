@@ -40,33 +40,6 @@
                     <div class="stat-number"><?php echo $total_users; ?></div>
                     <div class="stat-label">Total Usuarios</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon active">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number"><?php echo $active_users; ?></div>
-                    <div class="stat-label">Usuarios Activos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon inactive">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number"><?php echo $inactive_users; ?></div>
-                    <div class="stat-label">Usuarios Inactivos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon admins">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number"><?php echo $admin_users; ?></div>
-                    <div class="stat-label">Administradores</div>
-                </div>
             </div>
             
             <!-- User Controls -->
@@ -92,10 +65,11 @@
                     <thead>
                         <tr>
                             <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
                             <th>Email</th>
-                            <th>Rol</th>
-                            <th>Estado</th>
-                            <th>Último Acceso</th>
+                            <th>Teléfono</th>
+                            <th>Fecha Registro</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -354,22 +328,17 @@
                                     <div class="user-info">
                                         <div class="user-avatar">${user.nombre.charAt(0).toUpperCase()}${user.apellido.charAt(0).toUpperCase()}</div>
                                         <div class="user-details">
-                                            <div class="user-name">${user.nombre} ${user.apellido}</div>
-                                            <div class="user-email">${user.correo}</div>
+                                            <div class="user-name">${user.usuario}</div>
                                         </div>
                                     </div>
                                 </td>
+                                <td>${user.nombre}</td>
+                                <td>${user.apellido}</td>
                                 <td>${user.correo}</td>
-                                <td><span class="role-badge employee">Empleado</span></td> <!-- Placeholder -->
-                                <td><span class="status-badge active">Activo</span></td> <!-- Placeholder -->
+                                <td>${user.telefono || '-'}</td>
                                 <td>${user.fecha_registro}</td>
                                 <td>
                                     <div class="action-buttons">
-                                        <button class="action-btn view" title="Ver perfil" data-id="${user.id_usuario}">
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                            </svg>
-                                        </button>
                                         <button class="action-btn edit" title="Editar" data-id="${user.id_usuario}">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                                 <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -387,7 +356,7 @@
                         userTableBody.insertAdjacentHTML('beforeend', row);
                     });
                 } else {
-                    userTableBody.innerHTML = '<tr><td colspan="6">No hay usuarios registrados.</td></tr>';
+                    userTableBody.innerHTML = '<tr><td colspan="7">No hay usuarios registrados.</td></tr>';
                 }
             }
 
@@ -448,63 +417,142 @@
                 }
             });
 
-            // Handle Add User (basic example, would typically open a modal/form)
-            addBtn.addEventListener('click', function() {
-                const newUserName = prompt('Introduce el nombre del nuevo usuario:');
-                const newUserApellido = prompt('Introduce el apellido del nuevo usuario:');
-                const newUserEmail = prompt('Introduce el email del nuevo usuario:');
-                const newUserUsuario = prompt('Introduce el nombre de usuario:');
-                const newUserClave = prompt('Introduce la clave del nuevo usuario:');
-                const newUserTelefono = prompt('Introduce el teléfono del nuevo usuario:');
+            // Modal HTML for Add/Edit User
+            const modalHTML = `
+                <div id="userModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2 id="modalTitle">Agregar Nuevo Usuario</h2>
+                        <form id="userForm">
+                            <input type="hidden" id="userId">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" id="apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Email:</label>
+                                <input type="email" id="correo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" id="usuario" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clave">Contraseña:</label>
+                                <input type="password" id="clave">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono">
+                            </div>
+                            <button type="submit" class="submit-btn">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-                if (newUserName && newUserApellido && newUserEmail && newUserUsuario && newUserClave) {
-                    fetch('../php/CRUD_usuarios.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            action: 'add',
-                            nombre: newUserName,
-                            apellido: newUserApellido,
-                            correo: newUserEmail,
-                            usuario: newUserUsuario,
-                            clave: newUserClave,
-                            telefono: newUserTelefono
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            fetchUsers(); // Refresh the list
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error de conexión al agregar usuario.');
-                    });
+            const modal = document.getElementById('userModal');
+            const closeBtn = document.querySelector('.close');
+            const userForm = document.getElementById('userForm');
+
+            // Handle Add User with Modal
+            addBtn.addEventListener('click', function() {
+                document.getElementById('modalTitle').textContent = 'Agregar Nuevo Usuario';
+                userForm.reset();
+                document.getElementById('userId').value = '';
+                document.getElementById('clave').required = true;
+                modal.style.display = 'block';
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
                 }
             });
 
-            // TODO: Implement edit functionality (e.g., open a modal with current user data)
+            userForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const userId = document.getElementById('userId').value;
+                const formData = {
+                    nombre: document.getElementById('nombre').value,
+                    apellido: document.getElementById('apellido').value,
+                    correo: document.getElementById('correo').value,
+                    usuario: document.getElementById('usuario').value,
+                    telefono: document.getElementById('telefono').value
+                };
+
+                if (!userId) { // Add new user
+                    formData.action = 'add';
+                    formData.clave = document.getElementById('clave').value;
+                } else { // Update existing user
+                    formData.action = 'update';
+                    formData.id_usuario = userId;
+                    const password = document.getElementById('clave').value;
+                    if (password) formData.clave = password;
+                }
+
+                fetch('../php/CRUD_usuarios.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        modal.style.display = 'none';
+                        fetchUsers();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error de conexión.');
+                });
+            });
+
+            // Handle Edit User
             userTableBody.addEventListener('click', function(event) {
                 if (event.target.closest('.action-btn.edit')) {
                     const userId = event.target.closest('.action-btn.edit').dataset.id;
-                    alert('Editar usuario con ID: ' + userId + ' (Funcionalidad no implementada completamente)');
-                    // Here you would typically fetch user data by ID and populate a form for editing
+                    fetch(`../php/CRUD_usuarios.php?id=${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success && data.data) {
+                                const user = data.data;
+                                document.getElementById('modalTitle').textContent = 'Editar Usuario';
+                                document.getElementById('userId').value = user.id_usuario;
+                                document.getElementById('nombre').value = user.nombre;
+                                document.getElementById('apellido').value = user.apellido;
+                                document.getElementById('correo').value = user.correo;
+                                document.getElementById('usuario').value = user.usuario;
+                                document.getElementById('telefono').value = user.telefono || '';
+                                document.getElementById('clave').required = false;
+                                modal.style.display = 'block';
+                            } else {
+                                alert('Error al cargar datos del usuario');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error de conexión al cargar datos del usuario');
+                        });
                 }
             });
 
-            // TODO: Implement view functionality (e.g., open a modal with user details)
-            userTableBody.addEventListener('click', function(event) {
-                if (event.target.closest('.action-btn.view')) {
-                    const userId = event.target.closest('.action-btn.view').dataset.id;
-                    alert('Ver detalles del usuario con ID: ' + userId + ' (Funcionalidad no implementada completamente)');
-                }
-            });
+
         });
     </script>
 </body>

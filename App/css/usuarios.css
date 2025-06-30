@@ -6,6 +6,16 @@
 }
 
 :root {
+  /* Modal Variables */
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --modal-bg: var(--color-white);
+  --modal-border: var(--color-gainsboro);
+  --modal-shadow: var(--shadow-heavy);
+  --input-border: var(--color-gainsboro);
+  --input-focus: var(--color-eerie-black);
+  --input-bg: var(--color-white);
+  --label-color: var(--color-eerie-black);
+
   --color-black: #141414;
   --color-gray94: #f0f0f0;
   --color-white: #ffffff;
@@ -676,6 +686,119 @@ body {
 .action-btn:focus {
   outline: 2px solid var(--color-raisin-black);
   outline-offset: 2px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-overlay);
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: var(--modal-bg);
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: var(--border-radius-lg);
+  max-width: 600px;
+  position: relative;
+  border: 1px solid var(--modal-border);
+  box-shadow: var(--modal-shadow);
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--color-eerie-black);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close:hover {
+  color: var(--color-raisin-black);
+  transform: scale(1.1);
+}
+
+#modalTitle {
+  font-size: 1.5rem;
+  color: var(--color-eerie-black);
+  margin-bottom: 1.5rem;
+  padding-right: 40px;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--label-color);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--input-border);
+  border-radius: var(--border-radius);
+  background-color: var(--input-bg);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(20, 20, 40, 0.1);
+}
+
+.submit-btn {
+  background: linear-gradient(
+    135deg,
+    var(--color-eerie-black) 0%,
+    var(--color-raisin-black) 100%
+  );
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .form-group input {
+    font-size: 16px; /* Prevents zoom on mobile */
+  }
 }
 
 /* Print Styles */
