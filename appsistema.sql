@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2025 a las 08:03:33
+-- Tiempo de generación: 30-06-2025 a las 08:30:03
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `appsistema`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `admin`
+--
+
+CREATE TABLE `admin` (
+  `id_admin` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `clave` varchar(255) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `nombre`, `apellido`, `correo`, `usuario`, `clave`, `telefono`, `fecha_registro`) VALUES
+(1, 'Administrador', 'Principal', 'admin@example.com', 'admin', 'admin123', '999999999', '2025-06-30 06:22:01');
 
 -- --------------------------------------------------------
 
@@ -46,7 +70,9 @@ INSERT INTO `detalle_venta` (`id_detalle`, `id_venta`, `id_producto`, `cantidad`
 (4, 3, 4, 2, 29.99),
 (5, 4, 5, 1, 59.99),
 (6, 5, 1, 1, 15.99),
-(7, 5, 3, 2, 49.99);
+(7, 5, 3, 2, 49.99),
+(8, 6, 2, 2, 39.99),
+(9, 6, 4, 2, 29.99);
 
 -- --------------------------------------------------------
 
@@ -71,9 +97,9 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`id_producto`, `nombre`, `categoria`, `talla`, `color`, `precio`, `stock`, `fecha_creacion`) VALUES
 (1, 'Camiseta Básica', 'Ropa', 'M', 'Blanco', 15.99, 100, '2025-06-30 04:04:59'),
-(2, 'Pantalón Slim', 'Ropa', 'L', 'Azul Oscuro', 39.99, 50, '2025-06-30 04:04:59'),
+(2, 'Pantalón Slim', 'Ropa', 'L', 'Azul Oscuro', 39.99, 48, '2025-06-30 04:04:59'),
 (3, 'Sudadera Hoodie', 'Ropa', 'XL', 'Negro', 49.99, 75, '2025-06-30 04:04:59'),
-(4, 'Falda Plisada', 'Ropa', 'S', 'Rosa', 29.99, 40, '2025-06-30 04:04:59'),
+(4, 'Falda Plisada', 'Ropa', 'S', 'Rosa', 29.99, 38, '2025-06-30 04:04:59'),
 (5, 'Chaqueta Denim', 'Ropa', 'M', 'Azul', 59.99, 30, '2025-06-30 04:04:59');
 
 -- --------------------------------------------------------
@@ -125,11 +151,20 @@ INSERT INTO `ventas` (`id_venta`, `fecha_venta`, `id_usuario`) VALUES
 (2, '2025-06-30 04:04:59', 2),
 (3, '2025-06-30 04:04:59', 3),
 (4, '2025-06-30 04:04:59', 4),
-(5, '2025-06-30 04:04:59', 5);
+(5, '2025-06-30 04:04:59', 5),
+(6, '2025-06-30 06:05:47', 2);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id_admin`),
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
 
 --
 -- Indices de la tabla `detalle_venta`
@@ -164,10 +199,16 @@ ALTER TABLE `ventas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -185,7 +226,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
