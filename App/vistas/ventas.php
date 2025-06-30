@@ -90,11 +90,7 @@
                     </svg>
                     <input type="text" class="search-input" placeholder="Buscar ventas...">
                 </div>
-                <div class="date-filter">
-                    <input type="date" class="date-input" placeholder="Fecha inicio">
-                    <span>-</span>
-                    <input type="date" class="date-input" placeholder="Fecha fin">
-                </div>
+                <button class="add-btn" id="openAddSaleModal">Agregar Nueva Venta</button>
             </div>
             
             <div class="table-responsive">
@@ -107,7 +103,6 @@
                             <th>Producto</th>
 
                             <th>Total</th>
-                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -116,9 +111,49 @@
                     </tbody>
                 </table>
             </div>
-            <button class="add-btn">Agregar Nueva Venta</button>
         </section>
     </main>
+
+    <!-- Modal para agregar nueva venta -->
+    <div id="addSaleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar Nueva Venta</h2>
+                <span class="close-modal-add">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addSaleForm">
+                    <div class="form-group">
+                        <label for="clienteSelect">Cliente:</label>
+                        <select id="clienteSelect" class="form-control" required>
+                            <!-- Opciones de clientes se cargarán dinámicamente aquí -->
+                        </select>
+                    </div>
+                    <div id="productosContainer">
+                        <div class="product-entry">
+                            <div class="form-group">
+                                <label for="productoSelect_1">Producto:</label>
+                                <select id="productoSelect_1" class="form-control producto-select" data-product-index="1" required>
+                                    <!-- Opciones de productos se cargarán dinámicamente aquí -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cantidad_1">Cantidad:</label>
+                                <input type="number" id="cantidad_1" class="form-control cantidad-input" min="1" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="precio_1">Precio Unitario:</label>
+                                <input type="number" id="precio_1" class="form-control precio-input" step="0.01" min="0.01" required readonly>
+                            </div>
+                            <button type="button" class="remove-product-btn" style="display:none;">Eliminar</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addProductBtn" class="btn btn-secondary">Añadir Otro Producto</button>
+                    <button type="submit" class="btn btn-primary">Guardar Venta</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal para detalles de venta -->
     <div id="detalleVentaModal" class="modal">
@@ -222,7 +257,6 @@
                             <td>${venta.producto_nombre}</td>
 
                             <td>$${parseFloat(venta.total).toFixed(2)}</td>
-                            <td><span class="status-badge completed">Completada</span></td>
                             <td>
                                 <div class="action-buttons">
                                     <button class="action-btn view" title="Ver detalles" onclick="verDetalleVenta(${venta.id_venta})">
@@ -302,11 +336,219 @@
 
         // Cerrar modal al hacer clic fuera de él
         window.addEventListener('click', (e) => {
-            const modal = document.getElementById('detalleVentaModal');
-            if (e.target === modal) {
-                modal.style.display = 'none';
+            const detalleModal = document.getElementById('detalleVentaModal');
+            const addModal = document.getElementById('addSaleModal');
+            if (e.target === detalleModal) {
+                detalleModal.style.display = 'none';
+            }
+            if (e.target === addModal) {
+                addModal.style.display = 'none';
             }
         });
+
+        // Lógica para el modal de agregar nueva venta
+        const openAddSaleModalBtn = document.getElementById('openAddSaleModal');
+        const addSaleModal = document.getElementById('addSaleModal');
+        const closeAddSaleModalBtn = document.querySelector('.close-modal-add');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const productosContainer = document.getElementById('productosContainer');
+        const addSaleForm = document.getElementById('addSaleForm');
+
+        let productIndex = 1;
+
+        openAddSaleModalBtn.addEventListener('click', () => {
+            addSaleModal.style.display = 'block';
+            cargarClientes();
+            cargarProductos(1);
+        });
+
+        closeAddSaleModalBtn.addEventListener('click', () => {
+            addSaleModal.style.display = 'none';
+            resetAddSaleForm();
+        });
+
+        addProductBtn.addEventListener('click', () => {
+            productIndex++;
+            const newProductEntry = document.createElement('div');
+            newProductEntry.classList.add('product-entry');
+            newProductEntry.innerHTML = `
+                <div class="form-group">
+                    <label for="productoSelect_${productIndex}">Producto:</label>
+                    <select id="productoSelect_${productIndex}" class="form-control producto-select" data-product-index="${productIndex}" required>
+                        <!-- Opciones de productos se cargarán dinámicamente aquí -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_${productIndex}">Cantidad:</label>
+                    <input type="number" id="cantidad_${productIndex}" class="form-control cantidad-input" min="1" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio_${productIndex}">Precio Unitario:</label>
+                    <input type="number" id="precio_${productIndex}" class="form-control precio-input" step="0.01" min="0.01" required readonly>
+                </div>
+                <button type="button" class="remove-product-btn">Eliminar</button>
+            `;
+            productosContainer.appendChild(newProductEntry);
+            cargarProductos(productIndex);
+            attachProductListeners(newProductEntry);
+        });
+
+        function attachProductListeners(productEntry) {
+            const productSelect = productEntry.querySelector('.producto-select');
+            const cantidadInput = productEntry.querySelector('.cantidad-input');
+            const precioInput = productEntry.querySelector('.precio-input');
+            const removeBtn = productEntry.querySelector('.remove-product-btn');
+
+            productSelect.addEventListener('change', () => {
+                const selectedOption = productSelect.options[productSelect.selectedIndex];
+                precioInput.value = selectedOption.dataset.precio || '';
+            });
+
+            removeBtn.addEventListener('click', () => {
+                productEntry.remove();
+            });
+        }
+
+        function cargarClientes() {
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=obtener_usuarios'
+            })
+            .then(response => response.json())
+            .then(data => {
+                const clienteSelect = document.getElementById('clienteSelect');
+                clienteSelect.innerHTML = '<option value="">Seleccione un cliente</option>';
+                if (data.success) {
+                    data.data.forEach(cliente => {
+                        const option = document.createElement('option');
+                        option.value = cliente.id_usuario;
+                        option.textContent = cliente.nombre_completo;
+                        clienteSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => console.error('Error al cargar clientes:', error));
+        }
+
+        function cargarProductos(index) {
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=obtener_productos_para_venta'
+            })
+            .then(response => response.json())
+            .then(data => {
+                const productoSelect = document.getElementById(`productoSelect_${index}`);
+                productoSelect.innerHTML = '<option value="">Seleccione un producto</option>';
+                if (data.success) {
+                    data.data.forEach(producto => {
+                        const option = document.createElement('option');
+                        option.value = producto.id_producto;
+                        option.textContent = `${producto.nombre} ($${parseFloat(producto.precio).toFixed(2)})`;
+                        option.dataset.precio = parseFloat(producto.precio).toFixed(2);
+                        productoSelect.appendChild(option);
+                    });
+                }
+                // Trigger change to set price for the first product if already selected
+                if (productoSelect.value) {
+                    const event = new Event('change');
+                    productoSelect.dispatchEvent(event);
+                }
+            })
+            .catch(error => console.error('Error al cargar productos:', error));
+        }
+
+        // Attach listeners for initial product entry
+        attachProductListeners(document.querySelector('.product-entry'));
+
+        addSaleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const id_usuario = document.getElementById('clienteSelect').value;
+            if (!id_usuario) {
+                alert('Por favor, seleccione un cliente.');
+                return;
+            }
+
+            const productos = [];
+            let isValid = true;
+            document.querySelectorAll('.product-entry').forEach(entry => {
+                const productoSelect = entry.querySelector('.producto-select');
+                const cantidadInput = entry.querySelector('.cantidad-input');
+                const precioInput = entry.querySelector('.precio-input');
+
+                const id_producto = productoSelect.value;
+                const cantidad = parseInt(cantidadInput.value);
+                const precio_unitario = parseFloat(precioInput.value);
+
+                if (!id_producto || isNaN(cantidad) || cantidad <= 0 || isNaN(precio_unitario) || precio_unitario <= 0) {
+                    isValid = false;
+                    alert('Por favor, complete todos los campos de producto y asegúrese de que la cantidad y el precio sean válidos.');
+                    return;
+                }
+                productos.push({
+                    id_producto: id_producto,
+                    cantidad: cantidad,
+                    precio_unitario: precio_unitario
+                });
+            });
+
+            if (!isValid || productos.length === 0) {
+                alert('Debe añadir al menos un producto válido.');
+                return;
+            }
+
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=agregar_venta&id_usuario=${id_usuario}&productos=${JSON.stringify(productos)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    addSaleModal.style.display = 'none';
+                    resetAddSaleForm();
+                    cargarEstadisticas();
+                    cargarTablaVentas();
+                } else {
+                    alert('Error al registrar la venta: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error al registrar venta:', error));
+        });
+
+        function resetAddSaleForm() {
+            document.getElementById('clienteSelect').value = '';
+            productosContainer.innerHTML = `
+                <div class="product-entry">
+                    <div class="form-group">
+                        <label for="productoSelect_1">Producto:</label>
+                        <select id="productoSelect_1" class="form-control producto-select" data-product-index="1" required>
+                            <!-- Opciones de productos se cargarán dinámicamente aquí -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad_1">Cantidad:</label>
+                        <input type="number" id="cantidad_1" class="form-control cantidad-input" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio_1">Precio Unitario:</label>
+                        <input type="number" id="precio_1" class="form-control precio-input" step="0.01" min="0.01" required readonly>
+                    </div>
+                    <button type="button" class="remove-product-btn" style="display:none;">Eliminar</button>
+                </div>
+            `;
+            productIndex = 1;
+            attachProductListeners(document.querySelector('.product-entry'));
+        }
 
         // Cargar datos al iniciar la página
         document.addEventListener('DOMContentLoaded', () => {
