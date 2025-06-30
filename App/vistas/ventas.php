@@ -51,14 +51,14 @@
             <h1 class="ventas-title">Gestión de Ventas</h1>
             
             <!-- Sales Statistics -->
-            <div class="sales-stats">
+            <div class="sales-stats" id="salesStats">
                 <div class="stat-card">
                     <div class="stat-icon revenue">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                     </div>
-                    <div class="stat-number">$45,230</div>
+                    <div class="stat-number" id="ingresosTotales">$0.00</div>
                     <div class="stat-label">Ingresos Totales</div>
                 </div>
                 <div class="stat-card">
@@ -67,7 +67,7 @@
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                         </svg>
                     </div>
-                    <div class="stat-number">156</div>
+                    <div class="stat-number" id="ventasRealizadas">0</div>
                     <div class="stat-label">Ventas Realizadas</div>
                 </div>
                 <div class="stat-card">
@@ -76,7 +76,7 @@
                             <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                         </svg>
                     </div>
-                    <div class="stat-number">89</div>
+                    <div class="stat-number" id="productosVendidos">0</div>
                     <div class="stat-label">Productos Vendidos</div>
                 </div>
             </div>
@@ -110,128 +110,39 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>#V001</td>
-                            <td>2024-01-15</td>
-                            <td>María García</td>
-                            <td>Vestido Elegante</td>
-                            <td>2</td>
-                            <td>$450.00</td>
-                            <td><span class="status-badge completed">Completada</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn view" title="Ver detalles">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#V002</td>
-                            <td>2024-01-14</td>
-                            <td>Carlos López</td>
-                            <td>Traje Formal</td>
-                            <td>1</td>
-                            <td>$680.00</td>
-                            <td><span class="status-badge processing">Procesando</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn view" title="Ver detalles">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#V003</td>
-                            <td>2024-01-13</td>
-                            <td>Ana Rodríguez</td>
-                            <td>Blusa Casual</td>
-                            <td>3</td>
-                            <td>$285.00</td>
-                            <td><span class="status-badge pending">Pendiente</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn view" title="Ver detalles">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#V004</td>
-                            <td>2024-01-12</td>
-                            <td>Pedro Martínez</td>
-                            <td>Pantalón Ejecutivo</td>
-                            <td>2</td>
-                            <td>$320.00</td>
-                            <td><span class="status-badge completed">Completada</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn view" title="Ver detalles">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#V005</td>
-                            <td>2024-01-11</td>
-                            <td>Laura Fernández</td>
-                            <td>Chaqueta Premium</td>
-                            <td>1</td>
-                            <td>$890.00</td>
-                            <td><span class="status-badge completed">Completada</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn view" title="Ver detalles">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody id="ventasTableBody">
+                        <!-- Los datos de ventas se cargarán dinámicamente aquí -->
                     </tbody>
                 </table>
             </div>
             <button class="add-btn">Agregar Nueva Venta</button>
         </section>
     </main>
+
+    <!-- Modal para detalles de venta -->
+    <div id="detalleVentaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles de la Venta</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <table class="detalle-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detalleVentaBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
     <script>
         // Hamburger menu functionality
@@ -257,6 +168,132 @@
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             }
+        });
+
+        // Función para cargar las estadísticas
+        function cargarEstadisticas() {
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=obtener_estadisticas'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('ingresosTotales').textContent = '$' + data.data.ingresos_totales;
+                    document.getElementById('ventasRealizadas').textContent = data.data.total_ventas;
+                    document.getElementById('productosVendidos').textContent = data.data.productos_vendidos;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para cargar la tabla de ventas
+        function cargarTablaVentas() {
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=obtener_ventas'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const tbody = document.getElementById('ventasTableBody');
+                    tbody.innerHTML = '';
+                    
+                    data.data.forEach(venta => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>#V${venta.id_venta.padStart(3, '0')}</td>
+                            <td>${new Date(venta.fecha_venta).toLocaleDateString()}</td>
+                            <td>-</td>
+                            <td>${venta.producto_nombre}</td>
+                            <td>${venta.cantidad}</td>
+                            <td>$${parseFloat(venta.total).toFixed(2)}</td>
+                            <td><span class="status-badge completed">Completada</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" title="Ver detalles" onclick="verDetalleVenta(${venta.id_venta})">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para ver detalles de una venta
+        function verDetalleVenta(id_venta) {
+            const modal = document.getElementById('detalleVentaModal');
+            const tbody = document.getElementById('detalleVentaBody');
+            modal.style.display = 'block';
+            
+            fetch('../php/CRUD_ventas.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=obtener_detalle&id_venta=${id_venta}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    tbody.innerHTML = '';
+                    let total = 0;
+                    
+                    data.data.forEach(detalle => {
+                        const tr = document.createElement('tr');
+                        const subtotal = parseFloat(detalle.subtotal);
+                        total += subtotal;
+                        
+                        tr.innerHTML = `
+                            <td>${detalle.producto_nombre}</td>
+                            <td>${detalle.cantidad}</td>
+                            <td>$${parseFloat(detalle.precio_unitario).toFixed(2)}</td>
+                            <td>$${subtotal.toFixed(2)}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                    
+                    // Agregar fila de total
+                    const trTotal = document.createElement('tr');
+                    trTotal.innerHTML = `
+                        <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                        <td style="font-weight: bold;">$${total.toFixed(2)}</td>
+                    `;
+                    tbody.appendChild(trTotal);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Cerrar modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('detalleVentaModal').style.display = 'none';
+        });
+
+        // Cerrar modal al hacer clic fuera de él
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('detalleVentaModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Cargar datos al iniciar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarEstadisticas();
+            cargarTablaVentas();
         });
     </script>        <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
     </footer>
