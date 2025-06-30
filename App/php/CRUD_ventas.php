@@ -4,14 +4,15 @@ require_once 'conexion.php';
 function obtenerVentas() {
     global $conexion;
     
-    $query = "SELECT v.id_venta, v.fecha_venta, 
-              p.nombre as producto_nombre, 
-              dv.cantidad, 
-              dv.precio_unitario,
-              (dv.cantidad * dv.precio_unitario) as total
+    $query = "SELECT DISTINCT v.id_venta, v.fecha_venta, 
+              GROUP_CONCAT(p.nombre SEPARATOR ', ') as producto_nombre,
+              SUM(dv.cantidad * dv.precio_unitario) as total,
+              CONCAT(u.nombre, ' ', u.apellido) as cliente_nombre
               FROM ventas v
               INNER JOIN detalle_venta dv ON v.id_venta = dv.id_venta
               INNER JOIN productos p ON dv.id_producto = p.id_producto
+              INNER JOIN usuarios u ON v.id_usuario = u.id_usuario
+              GROUP BY v.id_venta, v.fecha_venta, u.nombre, u.apellido
               ORDER BY v.fecha_venta DESC";
               
     $resultado = mysqli_query($conexion, $query);
@@ -61,21 +62,35 @@ function obtenerEstadisticasVentas() {
 function obtenerDetalleVenta($id_venta) {
     global $conexion;
     
-    $query = "SELECT p.nombre as producto_nombre, 
-              dv.cantidad, 
+    $query = "SELECT 
+              v.id_venta,
+              v.fecha_venta,
+              CONCAT(u.nombre, ' ', u.apellido) as cliente_nombre,
+              p.nombre as producto_nombre,
+              p.categoria,
+              p.talla,
+              p.color,
+              dv.cantidad,
               dv.precio_unitario,
               (dv.cantidad * dv.precio_unitario) as subtotal
               FROM detalle_venta dv
+              INNER JOIN ventas v ON dv.id_venta = v.id_venta
+              INNER JOIN usuarios u ON v.id_usuario = u.id_usuario
               INNER JOIN productos p ON dv.id_producto = p.id_producto
               WHERE dv.id_venta = ?";
               
     $stmt = mysqli_prepare($conexion, $query);
+    
+    if (!$stmt) {
+        return ['success' => false, 'message' => 'Error al preparar la consulta de detalle de venta: ' . mysqli_error($conexion)];
+    }
+
     mysqli_stmt_bind_param($stmt, 'i', $id_venta);
     mysqli_stmt_execute($stmt);
     $resultado = mysqli_stmt_get_result($stmt);
     
     if (!$resultado) {
-        return ['success' => false, 'message' => 'Error al obtener el detalle de la venta'];
+        return ['success' => false, 'message' => 'Error al obtener el detalle de la venta: ' . mysqli_error($conexion)];
     }
     
     $detalles = [];

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUXEAPPAREL - Ventas</title>
     <link rel="stylesheet" href="../css/ventas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="main-bg">
     <nav class="navbar">
@@ -104,7 +105,7 @@
                             <th>Fecha</th>
                             <th>Cliente</th>
                             <th>Producto</th>
-                            <th>Cantidad</th>
+
                             <th>Total</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -123,14 +124,21 @@
     <div id="detalleVentaModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Detalles de la Venta</h2>
+                <h2>Detalles de la Venta <span id="ventaId"></span></h2>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
+                <div class="venta-info">
+                    <p><strong>Fecha:</strong> <span id="ventaFecha"></span></p>
+                    <p><strong>Cliente:</strong> <span id="ventaCliente"></span></p>
+                </div>
                 <table class="detalle-table">
                     <thead>
                         <tr>
                             <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Talla</th>
+                            <th>Color</th>
                             <th>Cantidad</th>
                             <th>Precio Unitario</th>
                             <th>Subtotal</th>
@@ -208,11 +216,11 @@
                     data.data.forEach(venta => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>#V${venta.id_venta.padStart(3, '0')}</td>
+                            <td>#V${String(venta.id_venta).padStart(3, '0')}</td>
                             <td>${new Date(venta.fecha_venta).toLocaleDateString()}</td>
-                            <td>-</td>
+                            <td>${venta.cliente_nombre}</td>
                             <td>${venta.producto_nombre}</td>
-                            <td>${venta.cantidad}</td>
+
                             <td>$${parseFloat(venta.total).toFixed(2)}</td>
                             <td><span class="status-badge completed">Completada</span></td>
                             <td>
@@ -250,6 +258,13 @@
                 if (data.success) {
                     tbody.innerHTML = '';
                     let total = 0;
+
+                    // Set modal header info
+                    if (data.data.length > 0) {
+                        document.getElementById('ventaId').textContent = `#V${String(data.data[0].id_venta).padStart(3, '0')}`;
+                        document.getElementById('ventaFecha').textContent = new Date(data.data[0].fecha_venta).toLocaleDateString();
+                        document.getElementById('ventaCliente').textContent = data.data[0].cliente_nombre;
+                    }
                     
                     data.data.forEach(detalle => {
                         const tr = document.createElement('tr');
@@ -258,6 +273,9 @@
                         
                         tr.innerHTML = `
                             <td>${detalle.producto_nombre}</td>
+                            <td>${detalle.categoria}</td>
+                            <td>${detalle.talla}</td>
+                            <td>${detalle.color}</td>
                             <td>${detalle.cantidad}</td>
                             <td>$${parseFloat(detalle.precio_unitario).toFixed(2)}</td>
                             <td>$${subtotal.toFixed(2)}</td>
@@ -268,7 +286,7 @@
                     // Agregar fila de total
                     const trTotal = document.createElement('tr');
                     trTotal.innerHTML = `
-                        <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                        <td colspan="6" style="text-align: right; font-weight: bold;">Total:</td>
                         <td style="font-weight: bold;">$${total.toFixed(2)}</td>
                     `;
                     tbody.appendChild(trTotal);
