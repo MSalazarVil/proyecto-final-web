@@ -13,15 +13,15 @@
     <!-- Navigation Header -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <h1 class="brand-title">LUXEAPPAREL</h1>
-                <span class="brand-subtitle">Sistema de Gestión</span>
-            </div>
             <button class="hamburger" id="hamburger" aria-label="Menú de navegación">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
+            <div class="nav-brand">
+                <h1 class="brand-title">LUXEAPPAREL</h1>
+                <span class="brand-subtitle">Sistema de Gestión</span>
+            </div>
         </div>
         <div class="nav-menu" id="navMenu">
             <a href="vistas/inventario.php" class="nav-link">
