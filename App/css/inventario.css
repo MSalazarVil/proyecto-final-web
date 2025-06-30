@@ -149,16 +149,46 @@ body {
 /* Search and Filter Section */
 .inventory-controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items to the start */
   align-items: center;
   margin-bottom: 2rem;
-  gap: 1rem;
+  gap: 1rem; /* Space between search-filter-group and add-btn */
   flex-wrap: wrap;
+}
+
+.search-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between search and filter */
+  flex-grow: 1; /* Allow it to take available space */
+  max-width: calc(100% - 150px); /* Adjust based on button width */
+}
+
+@media (max-width: 768px) {
+  .inventory-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-filter-group {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .search-container,
+  .filter-select {
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 
 .search-container {
   position: relative;
-  flex: 1;
+  flex-grow: 1; /* Allow search input to grow */
   max-width: 400px;
 }
 
@@ -198,6 +228,7 @@ body {
   color: var(--color-eerie-black);
   cursor: pointer;
   transition: var(--transition);
+  min-width: 180px; /* Give it a minimum width */
 }
 
 .filter-select:focus {
@@ -327,40 +358,135 @@ body {
 
 /* Add Button */
 .add-btn {
-  background: linear-gradient(
-    135deg,
-    var(--color-eerie-black) 0%,
-    var(--color-raisin-black) 100%
-  );
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
   color: var(--color-white);
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: var(--border-radius);
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: var(--transition);
-  box-shadow: var(--shadow-medium);
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.add-btn::before {
-  content: "+";
-  font-size: 1.2rem;
-  font-weight: 700;
+  box-shadow: var(--shadow-light);
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .add-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-heavy);
+  box-shadow: var(--shadow-medium);
 }
 
-.add-btn:active {
-  transform: translateY(0);
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+  display: flex;
+  align-items: center;
+  display: none;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--color-white);
+  margin: auto;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-heavy);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.close-button {
+  color: var(--color-black);
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: var(--danger-color);
+  text-decoration: none;
+  transform: rotate(90deg);
+}
+
+.modal-content h2 {
+  font-size: 1.8rem;
+  color: var(--color-eerie-black);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-raisin-black);
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-gainsboro);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-eerie-black);
+  box-shadow: 0 0 0 3px rgba(20, 20, 40, 0.1);
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1.5rem;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Stats Cards */

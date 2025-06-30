@@ -18,39 +18,38 @@
             <!-- Estadísticas del Inventario -->
             <div class="inventory-stats">
                 <div class="stat-card">
-                    <div class="stat-number">245</div>
+                    <div class="stat-number" id="total-products">...</div>
                     <div class="stat-label">Total Productos</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">18</div>
+                    <div class="stat-number" id="total-categories">...</div>
                     <div class="stat-label">Categorías</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">$125,430</div>
+                    <div class="stat-number" id="total-value">...</div>
                     <div class="stat-label">Valor Total</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">12</div>
+                    <div class="stat-number" id="low-stock">...</div>
                     <div class="stat-label">Stock Bajo</div>
                 </div>
             </div>
             
             <!-- Controles de Búsqueda y Filtros -->
             <div class="inventory-controls">
-                <div class="search-container">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" class="search-input" placeholder="Buscar productos...">
+                <div class="search-filter-group">
+                    <div class="search-container">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Buscar productos...">
+                    </div>
+                    <select class="filter-select">
+                        <option value="">Todas las categorías</option>
+                    </select>
                 </div>
-                <select class="filter-select">
-                    <option value="">Todas las categorías</option>
-                    <option value="camisas">Camisas</option>
-                    <option value="pantalones">Pantalones</option>
-                    <option value="vestidos">Vestidos</option>
-                    <option value="accesorios">Accesorios</option>
-                </select>
+                <button class="add-btn">Agregar Producto</button>
             </div>
             
             <div class="table-responsive">
@@ -69,93 +68,224 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Camisa Elegante</td>
-                            <td>Camisas</td>
-                            <td>M</td>
-                            <td>Blanco</td>
-                            <td>$45.99</td>
-                            <td>25</td>
-                            <td><span class="status-badge in-stock">En Stock</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn delete" title="Eliminar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <polyline points="3,6 5,6 21,6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Pantalón Casual</td>
-                            <td>Pantalones</td>
-                            <td>L</td>
-                            <td>Azul</td>
-                            <td>$65.99</td>
-                            <td>8</td>
-                            <td><span class="status-badge low-stock">Stock Bajo</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn delete" title="Eliminar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <polyline points="3,6 5,6 21,6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2h4a2 2 0 0 1 2 2v2"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Vestido de Noche</td>
-                            <td>Vestidos</td>
-                            <td>S</td>
-                            <td>Negro</td>
-                            <td>$120.00</td>
-                            <td>0</td>
-                            <td><span class="status-badge out-of-stock">Agotado</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn edit" title="Editar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn delete" title="Eliminar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                            <polyline points="3,6 5,6 21,6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2h4a2 2 0 0 1 2 2v2"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
-            <button class="add-btn">Agregar Producto</button>
+
+            <!-- Modal para Agregar Producto -->
+            <div id="addProductModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h2>Agregar Nuevo Producto</h2>
+                    <form id="addProductForm">
+                        <div class="form-group">
+                            <label for="productName">Nombre:</label>
+                            <input type="text" id="productName" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Categoría:</label>
+                            <input type="text" id="productCategory" name="categoria" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSize">Talla:</label>
+                            <input type="text" id="productSize" name="talla" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productColor">Color:</label>
+                            <input type="text" id="productColor" name="color" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Precio:</label>
+                            <input type="number" id="productPrice" name="precio" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productStock">Stock:</label>
+                            <input type="number" id="productStock" name="stock" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Guardar Producto</button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
     <footer class="footer">
         <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
     </footer>
-    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fetchProducts = (category = '', searchTerm = '') => {
+                let url = '../php/CRUD_inventario.php';
+                const params = new URLSearchParams();
+
+                if (category) {
+                    params.append('category', category);
+                }
+                if (searchTerm) {
+                    params.append('search', searchTerm);
+                }
+
+                if (params.toString()) {
+                    url += `?${params.toString()}`;
+                }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const tbody = document.querySelector('.inventario-table tbody');
+                            tbody.innerHTML = ''; // Clear existing static rows
+                            data.data.forEach(product => {
+                                const row = `
+                                    <tr>
+                                        <td>${product.id_producto}</td>
+                                        <td>${product.nombre}</td>
+                                        <td>${product.categoria}</td>
+                                        <td>${product.talla}</td>
+                                        <td>${product.color}</td>
+                                        <td>$${parseFloat(product.precio).toFixed(2)}</td>
+                                        <td>${product.stock}</td>
+                                        <td><span class="status-badge ${product.stock > 10 ? 'in-stock' : (product.stock > 0 ? 'low-stock' : 'out-of-stock')}">${product.stock > 10 ? 'En Stock' : (product.stock > 0 ? 'Stock Bajo' : 'Agotado')}</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
+                                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-btn delete" title="Eliminar">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
+                                                        <polyline points="3,6 5,6 21,6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
+                                tbody.insertAdjacentHTML('beforeend', row);
+                            });
+                        } else {
+                            console.error('Error fetching products:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+
+            fetch('../php/CRUD_inventario.php?action=stats')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('total-products').textContent = data.data.totalProducts;
+                        document.getElementById('total-categories').textContent = data.data.totalCategories;
+                        document.getElementById('total-value').textContent = `$${parseFloat(data.data.totalValue).toFixed(2)}`;
+                        document.getElementById('low-stock').textContent = data.data.lowStock;
+                    } else {
+                        console.error('Error fetching stats:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            fetch('../php/CRUD_inventario.php?action=categories')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const filterSelect = document.querySelector('.filter-select');
+                        data.data.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category;
+                            option.textContent = category;
+                            filterSelect.appendChild(option);
+                        });
+                    } else {
+                        console.error('Error fetching categories:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            document.querySelector('.filter-select').addEventListener('change', (event) => {
+                const currentSearchTerm = document.querySelector('.search-input').value;
+                fetchProducts(event.target.value, currentSearchTerm);
+            });
+
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', (event) => {
+                const currentCategory = document.querySelector('.filter-select').value;
+                fetchProducts(currentCategory, event.target.value);
+            });
+
+            fetchProducts(); // Initial load of all products
+
+            // Modal functionality
+            const addProductModal = document.getElementById('addProductModal');
+            const addProductBtn = document.querySelector('.add-btn');
+            const closeButton = document.querySelector('.close-button');
+
+            addProductBtn.addEventListener('click', () => {
+                addProductModal.style.display = 'block';
+            });
+
+            closeButton.addEventListener('click', () => {
+                addProductModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == addProductModal) {
+                    addProductModal.style.display = 'none';
+                }
+            });
+
+            // Handle form submission (for adding product)
+            document.getElementById('addProductForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const productData = Object.fromEntries(formData.entries());
+
+                fetch('../php/CRUD_inventario.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Producto agregado exitosamente!');
+                        addProductModal.style.display = 'none';
+                        fetchProducts(); // Reload products to show the new one
+                        // Optionally, refresh stats and categories if they might change
+                        fetch('../php/CRUD_inventario.php?action=stats')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    document.getElementById('total-products').textContent = data.data.totalProducts;
+                                    document.getElementById('total-categories').textContent = data.data.totalCategories;
+                                    document.getElementById('total-value').textContent = `$${parseFloat(data.data.totalValue).toFixed(2)}`;
+                                    document.getElementById('low-stock').textContent = data.data.lowStock;
+                                }
+                            });
+                        fetch('../php/CRUD_inventario.php?action=categories')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const filterSelect = document.querySelector('.filter-select');
+                                    filterSelect.innerHTML = '<option value="">Todas las categorías</option>'; // Clear and re-add default
+                                    data.data.forEach(category => {
+                                        const option = document.createElement('option');
+                                        option.value = category;
+                                        option.textContent = category;
+                                        filterSelect.appendChild(option);
+                                    });
+                                }
+                            });
+                    } else {
+                        alert('Error al agregar producto: ' + data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
 </body>
 </html>
