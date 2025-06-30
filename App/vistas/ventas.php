@@ -7,10 +7,45 @@
     <link rel="stylesheet" href="../css/ventas.css">
 </head>
 <body class="main-bg">
-    <header class="header">
-        <h1 class="header-title">LUXEAPPAREL - Ventas</h1>
-    </header>
-    <a href="../index.php" class="back-btn">Volver al Menú Principal</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburger" aria-label="Menú de navegación">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-brand">
+                <h1 class="brand-title">LUXEAPPAREL</h1>
+                <span class="brand-subtitle">Sistema de Gestión</span>
+            </div>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="../vistas/inventario.php" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span>Inventario</span>
+            </a>
+            <a href="../vistas/ventas.php" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="m1 1 4 4 5.5 11h8.5a2 2 0 0 0 2-1.73L23 6H6"></path>
+                </svg>
+                <span>Ventas</span>
+            </a>
+
+            <a href="../vistas/usuarios.php" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Usuarios</span>
+            </a>
+        </div>
+    </nav>
     <main class="ventas-container">
         <section class="ventas-section">
             <h1 class="ventas-title">Gestión de Ventas</h1>
@@ -198,7 +233,32 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>        <p class="footer-text">&copy; 2024 LUXEAPPAREL. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
