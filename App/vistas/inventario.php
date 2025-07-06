@@ -276,6 +276,46 @@
 
             fetchProducts(); // Initial load of all products
 
+            // Modal para Editar Producto
+            const editProductModal = document.createElement('div');
+            editProductModal.id = 'editProductModal';
+            editProductModal.className = 'modal';
+            editProductModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h2>Editar Producto</h2>
+                    <form id="editProductForm">
+                        <input type="hidden" id="editProductId" name="id_producto">
+                        <div class="form-group">
+                            <label for="editProductName">Nombre:</label>
+                            <input type="text" id="editProductName" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductCategory">Categoría:</label>
+                            <input type="text" id="editProductCategory" name="categoria" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductSize">Talla:</label>
+                            <input type="text" id="editProductSize" name="talla" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductColor">Color:</label>
+                            <input type="text" id="editProductColor" name="color" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductPrice">Precio:</label>
+                            <input type="number" id="editProductPrice" name="precio" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductStock">Stock:</label>
+                            <input type="number" id="editProductStock" name="stock" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Guardar Cambios</button>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(editProductModal);
+
             // Modal functionality
             const addProductModal = document.getElementById('addProductModal');
             const addProductBtn = document.querySelector('.add-btn');
@@ -344,6 +384,116 @@
                     }
                 })
                 .catch(error => console.error('Error:', error));
+            });
+
+            // Handle edit button clicks
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.action-btn.edit')) {
+                    const row = e.target.closest('tr');
+                    const productId = row.cells[0].textContent;
+                    const productName = row.cells[1].textContent;
+                    const productCategory = row.cells[2].textContent;
+                    const productSize = row.cells[3].textContent;
+                    const productColor = row.cells[4].textContent;
+                    const productPrice = row.cells[5].textContent.replace('$', '');
+                    const productStock = row.cells[6].textContent;
+
+                    document.getElementById('editProductId').value = productId;
+                    document.getElementById('editProductName').value = productName;
+                    document.getElementById('editProductCategory').value = productCategory;
+                    document.getElementById('editProductSize').value = productSize;
+                    document.getElementById('editProductColor').value = productColor;
+                    document.getElementById('editProductPrice').value = productPrice;
+                    document.getElementById('editProductStock').value = productStock;
+
+                    document.getElementById('editProductModal').style.display = 'block';
+                }
+
+                if (e.target.closest('.action-btn.delete')) {
+                    if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                        const productId = e.target.closest('tr').cells[0].textContent;
+                        
+                        fetch('../php/CRUD_inventario.php', {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id_producto: productId })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Producto eliminado exitosamente');
+                                fetchProducts(); // Refresh product list
+                                // Refresh stats
+                                fetch('../php/CRUD_inventario.php?action=stats')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            document.getElementById('total-products').textContent = data.data.totalProducts;
+                                            document.getElementById('total-value').textContent = `$${parseFloat(data.data.totalValue).toFixed(2)}`;
+                                            document.getElementById('low-stock').textContent = data.data.lowStock;
+                                        }
+                                    });
+                            } else {
+                                alert('Error al eliminar producto: ' + data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                }
+            });
+
+            // Handle edit form submission
+            document.getElementById('editProductForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const productData = Object.fromEntries(formData.entries());
+
+                fetch('../php/CRUD_inventario.php', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Producto actualizado exitosamente');
+                        document.getElementById('editProductModal').style.display = 'none';
+                        fetchProducts(); // Refresh product list
+                        // Refresh stats
+                        fetch('../php/CRUD_inventario.php?action=stats')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    document.getElementById('total-products').textContent = data.data.totalProducts;
+                                    document.getElementById('total-value').textContent = `$${parseFloat(data.data.totalValue).toFixed(2)}`;
+                                    document.getElementById('low-stock').textContent = data.data.lowStock;
+                                }
+                            });
+                    } else {
+                        alert('Error al actualizar producto: ' + data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Close modal when clicking on close button
+            document.querySelectorAll('.modal .close-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
             });
         });
     </script>

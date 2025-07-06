@@ -111,7 +111,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $products = getAllProducts($conexion, $category, $searchTerm);
         echo json_encode(['success' => true, 'data' => $products]);
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['id_producto']) && isset($data['nombre']) && isset($data['categoria']) && isset($data['talla']) && isset($data['color']) && isset($data['precio']) && isset($data['stock'])) {
+        $id_producto = mysqli_real_escape_string($conexion, $data['id_producto']);
+        $nombre = mysqli_real_escape_string($conexion, $data['nombre']);
+        $categoria = mysqli_real_escape_string($conexion, $data['categoria']);
+        $talla = mysqli_real_escape_string($conexion, $data['talla']);
+        $color = mysqli_real_escape_string($conexion, $data['color']);
+        $precio = mysqli_real_escape_string($conexion, $data['precio']);
+        $stock = mysqli_real_escape_string($conexion, $data['stock']);
+
+        $sql = "UPDATE productos SET nombre='$nombre', categoria='$categoria', talla='$talla', color='$color', precio='$precio', stock='$stock' WHERE id_producto=$id_producto";
+
+        if (mysqli_query($conexion, $sql)) {
+            echo json_encode(['success' => true, 'message' => 'Producto actualizado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al actualizar producto: ' . mysqli_error($conexion)]);
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Datos incompletos para actualizar producto']);
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['id_producto'])) {
+        $id_producto = mysqli_real_escape_string($conexion, $data['id_producto']);
+
+        $sql = "DELETE FROM productos WHERE id_producto=$id_producto";
+
+        if (mysqli_query($conexion, $sql)) {
+            echo json_encode(['success' => true, 'message' => 'Producto eliminado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al eliminar producto: ' . mysqli_error($conexion)]);
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'ID de producto no proporcionado para eliminar']);
+    }
+}
+ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (isset($data['nombre']) && isset($data['categoria']) && isset($data['talla']) && isset($data['color']) && isset($data['precio']) && isset($data['stock'])) {
