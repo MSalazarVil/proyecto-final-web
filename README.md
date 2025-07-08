@@ -11,3 +11,6 @@ Subir un commit:
 
 Actualizar Local (si en caso ya tienes el repositorio ya clonado)
    git pull
+
+Ejecutar el app
+php -S localhost:8000 -t App
